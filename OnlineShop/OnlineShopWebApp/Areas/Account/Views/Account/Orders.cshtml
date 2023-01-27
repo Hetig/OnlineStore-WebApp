@@ -1,0 +1,32 @@
+﻿@model List<OrderViewModel>
+
+<div class="row">
+	@await Html.PartialAsync("MenuPanel")
+	<div class="col-9">
+		<div class="card" style="width: 50rem">
+			<h5 style="text-align:center; padding-top:10px; padding-bottom:10px">@ViewLocalizer["title.text"]</h5>
+			@foreach (var order in Model)
+			{
+				<div class="card" style="margin:20px; background-color:ghostwhite">
+					<div class="card-header">
+						<p>@ViewLocalizer["id.text"]: @order.Id</p>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-9">
+								@foreach (var item in order.Items)
+								{
+									<img src="@item.Product.ImagePath" class="rounded" height="100" width="100" style="margin:10px">
+								}
+							</div>
+							<div class="col-3">
+								<p style="font-weight:600">@ViewLocalizer["status.text"]: @EnumHelper.GetDisplayName(order.Status)</p>
+								<p style="font-weight:600">@ViewLocalizer["total.text"]: @order.Cost &#8381</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</div>

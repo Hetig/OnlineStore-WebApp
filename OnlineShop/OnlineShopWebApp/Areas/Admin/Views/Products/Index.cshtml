@@ -1,0 +1,73 @@
+﻿@model List<ProductViewModel>
+<div class="row">
+
+	@await Html.PartialAsync("MenuPanel")
+
+	<div class="col-9">
+		<form method="post">
+
+			<div class="card" style="width: 50rem;">
+
+				<table class="table">
+
+					<thead>
+						<tr>
+							<th>№</th>
+							<th>@ViewLocalizer["productname.text"]</th>
+							<th>@ViewLocalizer["productcost.text"]</th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						@for (int i = 0; i < Model.Count; i++)
+						{
+							<tr>
+								<td>@(i + 1)</td>
+								<td>
+									<a href="/Admin/Products/Product?productId=@Model[i].Id">@Model[i].Name</a>
+								</td>
+								<td>@Model[i].Cost ₽</td>
+								<td>
+									<a href="/Admin/Products/Edit?productId=@Model[i].Id">@ViewLocalizer["edit.button"]</a>
+								</td>
+
+								@{
+									string removeModal = $"RemoveModal{Model[i].Id}";
+								}
+
+								<td>
+									<button type="button" class="btn btn-danger" data-toggle="modal" href="#@removeModal">@ViewLocalizer["delete.button"]</button>
+
+									<div class="modal fade" id="@removeModal" tabindex="-1" role="dialog" aria-labelledby="modalLongTitle" aria-hidden="false">
+										<div class="modal-dialog modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="modalLongTitle">@ViewLocalizer["warningtitle.text"]</h5>
+												</div>
+												<div class="modal-body">
+													<p>@ViewLocalizer["warningdesc.text"]</p>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-info" data-dismiss="modal">Назад</button>
+													<a href="/Admin/Products/Remove?productId=@Model[i].Id" type="button" class="btn btn-danger">
+														@ViewLocalizer["delete.button"]
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+			<br>
+			<button class="btn btn-dark" asp-area="Admin" asp-controller="Products" asp-action="Add">
+				@ViewLocalizer["add.button"]
+			</button>
+		</form>
+	</div>
+</div>
+

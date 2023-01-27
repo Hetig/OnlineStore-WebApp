@@ -1,0 +1,64 @@
+﻿@model EditProductViewModel
+
+<div class="row">
+	@await Html.PartialAsync("MenuPanel")
+
+	<div class="col-9">
+		<form method="post" enctype="multipart/form-data">
+
+			<div class="text-danger font-weight-bold" asp-validation-summary="All"></div>
+
+			<h4 style="text-align:center">@ViewLocalizer["title.text"]</h4>
+
+			<div class="productEdit-form" style="width: 600px; margin-left:auto; margin-right:auto">
+				<br>
+				<div class="input-form">
+					<input asp-for="Name" class="form-control" placeholder=@ViewLocalizer["productname.text"]>
+					<span asp-validation-for="Name" style="color:red"></span>
+				</div>
+				<br>
+				<div>
+					<input asp-for="Cost" class="form-control" placeholder=@ViewLocalizer["cost.text"]>
+					<span asp-validation-for="Cost" style="color:red"></span>
+				</div>
+				<br>
+				<div>
+					<input asp-for="Description" class="form-control" placeholder=@ViewLocalizer["description.text"]>
+					<span asp-validation-for="Description" style="color:red"></span>
+				</div>
+				<br>
+				<div>
+					<label>@ViewLocalizer["images.text"]</label>
+					@foreach (var imagePath in Model.ImagesPaths)
+					{
+						<div style="padding: 4px">
+							<img src="@imagePath" width="150" height="150">
+						</div>
+					}
+				</div>
+				<br>
+				<div class="form-group">
+					<label>@ViewLocalizer["upload.text"]</label>
+					<input type="file" name="UploadedFiles" multiple accept="image/*" class="form-control">
+					<span asp-validation-for="UploadedFiles"></span>
+				</div>
+				<br>
+
+				<div style="text-align:center">
+					<button type="submit" style="width: 180px" class="btn btn-info role="button" asp-area="Admin" asp-controller="Products" asp-action="Edit">
+						@ViewLocalizer["edit.button"]
+					</button>
+				</div>
+				<div>
+					<input type="hidden" asp-for="Id" class="form-control" value="@Model?.Id">
+				</div>
+				<div>
+					<input type="hidden" asp-for="IsFavorite" class="form-control" value="@Model?.IsFavorite">
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+

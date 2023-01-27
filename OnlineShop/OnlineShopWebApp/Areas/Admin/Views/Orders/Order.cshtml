@@ -1,0 +1,72 @@
+﻿@model OrderViewModel
+@inject IViewLocalizer ViewLocalizer
+
+<div class="row">
+	<div class="col-3">
+		@await Html.PartialAsync("MenuPanel")
+	</div>
+
+	<div class="card col-9">
+		<div class="card-header">
+			<h4>@ViewLocalizer["orderid.text"] @Model.Id</h4>
+		</div>
+		<div class="card-body">
+			<table class="table table-borderless">
+				<tr>
+					<td style="color:gray">@ViewLocalizer["datetime.text"]:</td>
+					<td>@Model.CreateDateTime.ToString("dd.MM.yyyy HH:mm")</td>
+				</tr>
+				<tr>
+					<td style="color:gray">@ViewLocalizer["delivery.text"]:</td>
+					<td>@Model.UserDeliveryInfo.Address</td>
+				</tr>
+				<tr>
+					<td style="color:gray">@ViewLocalizer["recipient.text"]:</td>
+					<td>@Model.UserDeliveryInfo.FirstName @Model.UserDeliveryInfo.LastName</td>
+				</tr>
+				<tr>
+					<td style="color:gray">@ViewLocalizer["phone.text"]:</td>
+					<td>@Model.UserDeliveryInfo.PhoneNumber</td>
+				</tr>
+				<tr>
+					<td style="color:gray">Email:</td>
+					<td>@Model.UserDeliveryInfo.Email</td>
+				</tr>
+				<tr>
+					<td style="color:gray">@ViewLocalizer["comment.text"]:</td>
+
+					<td>@Model.UserDeliveryInfo.Comment</td>
+				</tr>
+				<tr>
+					<td style="color:gray">@ViewLocalizer["total.text"]:</td>
+					<td>@Model.Items.Sum(x => x.Cost)</td>
+				</tr>
+				<tr>
+					<td style="color:gray">@ViewLocalizer["status.text"]</td>
+					<td>
+						<div class="btn-group" role="group">
+							<button class="btn btn-info dropdown-toggle" id="dropdownMenu" type="button" data-toggle="dropdown"
+									aria-expanded="false" aria-haspopup="true">
+								@EnumHelper.GetDisplayName(Model.Status)
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenu">
+
+								<a class="dropdown-item" href="/Admin/Orders/ChangeStatus?status=Created&orderId=@Model.Id">Создан</a>
+
+								<a class="dropdown-item" href="/Admin/Orders/ChangeStatus?status=Processed&orderId=@Model.Id">Обработан</a>
+
+								<a class="dropdown-item" href="/Admin/Orders/ChangeStatus?status=Sent&orderId=@Model.Id">В пути</a>
+
+								<a class="dropdown-item" href="/Admin/Orders/ChangeStatus?status=Canceled&orderId=@Model.Id">Отменен</a>
+
+								<a class="dropdown-item" href="/Admin/Orders/ChangeStatus?status=Delivered&orderId=@Model.Id">Доставлен</a>
+
+							</div>
+						</div>
+
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>

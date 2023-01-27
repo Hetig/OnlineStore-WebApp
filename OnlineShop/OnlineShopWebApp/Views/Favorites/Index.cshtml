@@ -1,0 +1,46 @@
+﻿@model List<ProductViewModel>
+@{
+	ViewData["Title"] = "Home Page";
+}
+@if (Model == null || Model.Count == 0)
+{
+	<h3>@ViewLocalizer["empty.text"]</h3>
+}
+<div class="row">
+	@foreach (var product in Model)
+	{
+		<div class="col-3 card-body shadow">
+			<img class="card-img-top" src="@product.ImagePath" height="300" width="200" style="object-fit: cover">
+
+			<div class="card-body" style="width: 200px; height: 120px">
+				<a style="color: black" href="/product/index/@product.Id"><h5>@product.Name</h5></a>
+				<h5>@product.Cost ₽</h5>
+			</div>
+
+			<div class="card-footer w-5" style="background-color:white">
+				<div class="row">
+
+					<div style="margin-left: auto">
+						<a type="button" style="width:180px" class="btn btn-dark" href="/basket/add?productId=@product.Id">
+							@ViewLocalizer["add.button"]
+						</a>
+					</div>
+
+					<div style="margin: auto">
+						<a type="button" class="btn btn-danger" href="/favorites/remove?productId=@product.Id">
+							✕
+						</a>
+					</div>
+
+					<div class="col-10" style="top: 8px">
+						<a type="button" style="width:200px" class="btn btn-info btn-sm" href="/compareproducts/compare?productId=@product.Id">
+							@ViewLocalizer["compare.button"]
+						</a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	}
+</div>
+

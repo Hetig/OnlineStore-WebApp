@@ -1,0 +1,43 @@
+﻿@model EditUserData
+
+<div class="row">
+	@await Html.PartialAsync("MenuPanel")
+	<div class="col-9">
+		<div class="card" style="width: 50rem;">
+			<h5 class="text-lg-center">@ViewLocalizer["title.text"]</h5>
+			<div style="padding-left:20px; padding-right:20px">
+				<form method="post" enctype="multipart/form-data">
+
+					<div class="text-danger font-weight-bold" asp-validation-summary="All"></div>
+					<div class="input-group mb-3">
+						<span class="input-group-text" style="width: 125px">@ViewLocalizer["firstname.text"]</span>
+						<input type="text" asp-for="FirstName" class="form-control">
+					</div>
+					<div class="input-group mb-3">
+						<span class="input-group-text" style="width: 125px">@ViewLocalizer["lastname.text"]</span>
+						<input type="text" asp-for="LastName" class="form-control">
+					</div>
+					<div class="input-group mb-3">
+						<span class="input-group-text" style="width: 125px">@ViewLocalizer["phone.text"]</span>
+						<input type="text" asp-for="PhoneNumber" class="form-control">
+					</div>
+					<div class="input-group mb-3">
+						<span class="input-group-text" style="width: 125px">@ViewLocalizer["address.text"]</span>
+						<input type="text" asp-for="Address" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>@ViewLocalizer["upload.text"]</label>
+						<input type="file" name="UploadedFile" multiple accept="image/*" class="form-control">
+						<span asp-validation-for="UploadedFile"></span>
+					</div>
+					<div class="text-center">
+						<button type="submit" style="width:150px" class="btn btn-dark" role="button" asp-area="Account" asp-controller="Account" asp-action="EditUserData">
+							@ViewLocalizer["edit.button"]
+						</button>
+					</div>
+					<p></p>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

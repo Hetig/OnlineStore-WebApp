@@ -1,0 +1,40 @@
+﻿@model UserViewModel
+@inject IViewLocalizer ViewLocalizer
+
+<div class="row">
+	<div class="col-3">
+		@await Html.PartialAsync("MenuPanel")
+	</div>
+
+	<div class="col-9">
+		<div class="row">
+			<div class="text-danger font-weight-bold" asp-validation-summary="All"></div>
+		</div>
+		<form method="post">
+			<h4 style="text-align:center">@ViewLocalizer["newuserdata.text"]</h4>
+
+			<div class="userEdit-form" style="width: 300px; margin-left:auto; margin-right:auto">								
+				<br>
+				<div>
+					<input asp-for="UserName" class="form-control" placeholder="Email">
+					<span asp-validation-for="UserName" style="color:red"></span>
+				</div>
+				<br>
+				<div>
+					<input asp-for="PhoneNumber" class="form-control" placeholder=@ViewLocalizer["phone.text"]>
+					<span asp-validation-for="PhoneNumber" style="color:red"></span>
+				</div>
+				<br>
+				<div style="text-align:center">
+					<button type="submit" style="width: 180px" class="btn btn-info role="button" asp-area="Admin" asp-controller="Users" asp-action="Edit">
+						@ViewLocalizer["edit.button"]
+					</button>
+				</div>
+				<br>
+				<div>
+					<input type="hidden" asp-for="Id" class="form-control" value="@Model.Id">
+				</div>								
+			</div>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,41 @@
+﻿@model List<ProductViewModel>
+
+@await Html.PartialAsync("Index")
+
+@if (Model == null || Model.Count == 0)
+{
+	<div style="text-align:center; margin-top: 70px">
+		<h4>Товар не найден</h4>
+	</div>
+	return;
+}
+<div class="row">
+	@foreach (var product in Model)
+	{
+		<div class="col-3 card-body shadow">
+			<img class="card-img-top" src="@product.ImagePath" height="300" width="200" style="object-fit: cover">
+
+			<div class="card-body" style="width: 200px; height: 120px">
+				<a style="color: black" href="/product/index/@product.Id"><h5>@product.Name</h5></a>
+				<h5>@product.Cost ₽</h5>
+			</div>
+			<div class="card-footer w-5">
+				<div class="row">
+					<div style="margin-block:auto">
+						<a type="button" class="btn btn-dark" href="/basket/add?productId=@product.Id">
+							Добавить в корзину
+						</a>
+					</div>
+					@if (product.IsFavorite == false)
+					{
+						<div style="margin:auto">
+							<a type="button" class="btn btn-danger" href="/favorites/add?productId=@product.Id">
+								🤍
+							</a>
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+	}
+</div>

@@ -1,0 +1,39 @@
+﻿@model Authorization
+
+<form method="post">
+	<div class="row">
+		<div class="text-danger font-weight-bold" asp-validation-summary="All"></div>
+		<input type="hidden" name="returnUrl" value="@Model?.ReturnUrl">
+	</div>
+	<div class="authorization-form" style="width: 300px; margin-left:auto; margin-right:auto">
+		<h3 style="text-align:center">Вход</h3>
+		<br>
+		<div class="input-form">
+			<input type="email" asp-for="Login" class="form-control" placeholder="Логин">
+			<span asp-validation-for="Login" style="color:red"></span>
+		</div>
+		<br>
+		<div>
+			<input type="password" asp-for="Password" class="form-control" placeholder="Пароль">
+			<span asp-validation-for="Password" style="color:red"></span>
+		</div>
+
+		<div class="form-check" style="text-align: center; margin-top: 10px">
+			<input class="form-check-input" asp-for="RememberMe" type="checkbox" value="true">
+			<label class="form-chek-label">
+				Запомнить меня?
+			</label>
+		</div>
+		<br>
+		<div style="text-align:center">
+			<button type="submit" style="width: 150px" class="btn btn-dark" role="button" asp-area="Account" asp-controller="Authorization" asp-action="Authorize">
+				Войти
+			</button>
+		</div>
+		<br>
+		<div style="text-align:center">
+			<a asp-area="Account" asp-controller="Registration" asp-action="Index" asp-route-ReturnUrl="@Model?.ReturnUrl">Регистрация нового пользователя</a>
+		</div>
+	</div>
+</form>
+

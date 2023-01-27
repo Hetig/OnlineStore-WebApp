@@ -1,0 +1,44 @@
+﻿@model UserViewModel
+@inject IViewLocalizer ViewLocalizer
+
+<div class="row">
+	<div class="col-3">
+		@await Html.PartialAsync("MenuPanel")
+	</div>
+
+	<div class="card col-9">
+		<div class="card-header">
+			<h4>@ViewLocalizer["user.text"]: @Model.UserName</h4>
+		</div>
+		<div class="card-body">
+			<table class="table table-borderless">				
+				<tr>
+					<td style="color:gray">Email:</td>
+					<td>@Model.UserName</td>
+				</tr>
+				<tr>
+					<td style="color:gray">@ViewLocalizer["phone.text"]:</td>
+					<td>@Model.PhoneNumber</td>
+				</tr>
+				
+			</table>
+			<div class="btn-group" role="group">
+				<button class="btn btn-info dropdown-toggle" id="dropdownMenu" type="button" data-toggle="dropdown"
+						aria-expanded="false" aria-haspopup="true">
+					@ViewLocalizer["actions.button"]
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenu">
+
+					<a class="dropdown-item" href="/Admin/Users/ChangePassword?userId=@Model.Id">@ViewLocalizer["passwordchange.button"]</a>
+
+					<a class="dropdown-item" href="/Admin/Users/Edit?userId=@Model.Id">@ViewLocalizer["editdata.button"]</a>
+
+					<a class="dropdown-item" href="/Admin/Users/EditRights?userId=@Model.Id">@ViewLocalizer["rights.button"]</a>
+
+					<a class="dropdown-item" href="/Admin/Users/Remove?userId=@Model.Id">@ViewLocalizer["remove.button"]</a>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

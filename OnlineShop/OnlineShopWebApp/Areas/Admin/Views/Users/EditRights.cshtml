@@ -1,0 +1,46 @@
+﻿@model EditRightsViewModel
+@inject IViewLocalizer ViewLocalizer
+
+<div class="row">
+	<div class="col-3">
+		@await Html.PartialAsync("MenuPanel")
+	</div>
+
+	<div class="card col-9">
+		<form method="post">
+			<div class="card-header">
+				<h4>@ViewLocalizer["currentuserroles.text"]: @Model.UserName</h4>
+			</div>
+
+			<input type="hidden" name="userId" value="@Model.UserId">
+
+			<div class="card-body">
+				<div>
+					@foreach (var role in Model.AllRoles)
+					{
+						<div>
+							@if (Model.UserRoles.Contains(role))
+							{
+								<div class="form-check">
+									<input class="form-check-input" name="userRolesViewModel[@role.Name]" type="checkbox" value="true" checked>
+									<label class="form-check-label" for="flexCheckDefault"> @role.Name </label>
+								</div>
+							}
+							else
+							{
+								<div class="form-check">
+									<input class="form-check-input" name="userRolesViewModel[@role.Name]" type="checkbox" value="true">
+									<label class="form-check-label" for="flexCheckChecked"> @role.Name </label>
+								</div>
+							}
+						</div>
+					}
+				</div>
+				<br>
+				<button type="submit" style="width: 180px" class="btn btn-info" role="button" asp-area="Admin" asp-controller="Users" asp-action="EditRights">
+					@ViewLocalizer["edit.button"]
+				</button>
+			</div>
+		</form>
+	</div>
+</div>

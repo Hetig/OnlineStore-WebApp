@@ -1,0 +1,25 @@
+﻿@model RoleViewModel
+@inject IViewLocalizer ViewLocalizer
+
+<form method="post">
+	<div class="row">
+		<div class="col-3">
+			@await Html.PartialAsync("MenuPanel")
+		</div>
+
+		<div class="AddRole" style="margin-right:auto; margin-left:auto">
+			<h4>@ViewLocalizer["newrole.text"]</h4>
+			<div class="text-danger font-weight-bold" asp-validation-summary="All"></div>
+			<br>
+			<div>
+				<input type="text" asp-for="Name" class="form-control" style="width: 350px" placeholder=@ViewLocalizer["rolename.text"]>
+				<span asp-validation-for="Name" style="color:red"></span>
+			</div>
+			<br>
+			<button type="submit" style="width: 200px" class="btn btn-success role="button" asp-area="Admin" asp-controller="Roles" asp-action="Add">
+				@ViewLocalizer["add.button"]
+			</button>
+		</div>
+
+	</div>
+</form>
