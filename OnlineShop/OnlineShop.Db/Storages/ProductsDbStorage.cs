@@ -11,6 +11,13 @@ namespace OnlineShop.Db.Storages
 {
 	public class ProductsDbStorage : IProductsStorage
 	{
+		/// <summary>
+		/// Класс ProductsDbStorage является хранилищем для продуктов,
+		/// которые есть на сайте. С помощью этого класса происходит взаимодействие
+		/// с товарами. Класс реализует интерфейс IProductsStorage, который находится в контейнере зависимостей DI,
+		/// благодаря чему взаимодействие с хранилищем товаров становится очень удобным. На мой взгляд в классе нет ничего лишнего,
+		/// все аккуратно и по существу.
+		/// </summary>
 		private readonly DatabaseContext _databaseContext;
 
 		public ProductsDbStorage(DatabaseContext databaseContext)
@@ -36,6 +43,12 @@ namespace OnlineShop.Db.Storages
 			await _databaseContext.SaveChangesAsync();
 		}
 
+		/// <summary>
+		/// Метод ChangeFavoriteStatusAsync меняет булевое состояние продукта, которое отображает
+		/// находится ли продукт в Корзине Избранных товаров
+		/// </summary>
+		/// <param name="productId"></param>
+		/// <returns></returns>
 		public async Task ChangeFavoriteStatusAsync(Guid productId)
 		{
 			var product = await TryGetByIdAsync(productId);
@@ -54,6 +67,12 @@ namespace OnlineShop.Db.Storages
 			await _databaseContext.SaveChangesAsync();
 		}
 
+		/// <summary>
+		/// Метод ChangeProductAsync меняет значения членов продукта, при его редактировании.
+		/// Редактирование продукта доступно только пользователям имеющим роль Администратора сайта.
+		/// </summary>
+		/// <param name="newProduct"></param>
+		/// <returns></returns>
 		public async Task ChangeProductAsync(Product newProduct)
 		{
 			var existingProduct = await TryGetByIdAsync(newProduct.Id);
@@ -72,6 +91,13 @@ namespace OnlineShop.Db.Storages
 			await _databaseContext.SaveChangesAsync();
 		}
 
+		/// <summary>
+		/// Метод FindProductsAsync реализует поиск товаров по введенным в поисковик значениям.
+		/// Поиск производится по словам, которые были введены в инпут. Если хоть одно слово совпало
+		/// с названием продукта, то оно будет выведено в результате. Из результата поиска выводятся все товары без повторений.
+		/// </summary>
+		/// <param name="productName"></param>
+		/// <returns></returns>
 		public async Task<List<Product>> FindProductsAsync(string productName)
 		{
 			var products = await GetAllAsync();
