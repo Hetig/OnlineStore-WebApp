@@ -8,6 +8,11 @@ using OnlineShopWebApp.Interfaces;
 
 namespace OnlineShopWebApp.Helpers
 {
+	/// <summary>
+	/// Отдельно хочется выделить класс для работы с картинками. Он отвечает за сохранение
+	/// фотографий загруженных пользователем. Класс делит фотографии на 2 категории, чтобы сохранить их в нужном месте
+	/// это фотографии товара, и аватарка пользователя
+	/// </summary>
 	public class ImagesProvider : IImagesProvider
 	{
 		private readonly IWebHostEnvironment _appEnvironment;
