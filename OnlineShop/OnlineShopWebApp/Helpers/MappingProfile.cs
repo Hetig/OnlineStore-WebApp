@@ -9,6 +9,10 @@ namespace OnlineShopWebApp.Helpers
 {
 	public class MappingProfile : Profile
 	{
+		/// <summary>
+		/// В данном классе использовал AutoMapper для преобразования DBModel в ViewModel.
+		/// Автомаппер сильно облегчил мне жизнь, поэтому ставлю его в список тех классов которыми я действительно доволен.
+		/// </summary>
 		public MappingProfile()
 		{
 			CreateMap<User, UserViewModel>().ReverseMap();
